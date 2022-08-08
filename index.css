@@ -1,100 +1,166 @@
-* {
-  box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap');
 
-/* Style the body */
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(
+        #243545,
+        #243545 var(--line-offset),
+        #dedede var(--line-offset)
+    );
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Lexend Deca', sans-serif;
+    color: #878787;
+
+    --menu-item-size: 50px;
+    --green-color: #329680;
+    --blue-color: #099c95;
+    --dark-green-color: #175b52;
+    --white-color: #FFF;
+    --gray-color: #EDEDED;
+    --container-width: 700px;
+    --container-height: 400px;
+    --line-offset: calc((100% - var(--container-height))/ 2 + var(--menu-item-size) + 0.6em);
 }
 
-/* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
-.navbar {
-  overflow: hidden;
-  background-color: #4aa157;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
+
+.container {
+    width: var(--container-width);
+    height: var(--container-height);
+    margin-left: -350px;
+    margin-top: -200px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    z-index: 1;
 }
 
-/* Style the navigation bar links */
-.navbar a {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 20px;
-  text-decoration: none;
+.main-menu {
+    display: flex;
+    list-style: none;
+    margin: auto 0;
+    padding: 0.6em 0 0 0;
 }
 
-
-/* Right-aligned link */
-.navbar a.right {
-  float: right;
+.main-menu > li {
+    box-sizing: border-box;
+    height: var(--menu-item-size);
+    width: calc(3.5 * var(--menu-item-size));
+    line-height: var(--menu-item-size);
+    padding: 0 2em;
+    margin: 1px;
+    transition: 0.5s linear all;
+    background: var(--green-color);
+    color: var(--dark-green-color);
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
 }
 
-/* Change color on hover */
-.navbar a:hover {
-  background-color: #ddd;
-  color: black;
+.main-menu > li:not(.with-submenu) {
+    clip-path: polygon(10% 0%, 0% 100%, 95% 100%, 100% 50%, 95% 0%);
+    shape-outside: polygon(10% 0%, 0% 100%, 95% 100%, 100% 50%, 95% 0%);
 }
 
-/* Active/current link */
-.navbar a.active {
-  background-color: #666;
-  color: white;
+.main-menu > li:nth-child(2) {
+    transform: translateX(-5%);
 }
 
-/* Column container */
-.row {
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
-  flex-wrap: wrap;
+.main-menu > li:nth-child(3) {
+    transform: translateX(-10%)
 }
 
-/* Create two unequal columns that sits next to each other */
-/* Sidebar/left column */
-.side {
-  -ms-flex: 30%; /* IE10 */
-  flex: 30%;
-  background-color: #f1f1f1;
-  padding: 20px;
+.main-menu > li:nth-child(4) {
+    transform: translateX(-15%)
 }
 
-/* Main column */
-.main {
-  -ms-flex: 70%; /* IE10 */
-  flex: 70%;
-  background-color: white;
-  padding: 20px;
+.main-menu i {
+    margin-right: 5px;
 }
 
-/* Fake image, just for this example */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
+.main-menu > li:hover:not(.active) {
+    background: linear-gradient(to right, var(--green-color), var(--blue-color));
+    color: var(--white-color);
 }
 
-/* Footer */
-.footer {
-  padding: 20px;
-  text-align: center;
-  background: #ddd;
+.main-menu > li:active:not(.active),
+.main-menu > li:active:not(.with-submenu){
+    background: var(--blue-color);
+    color: var(--white-color);
 }
 
-/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 700px) {
-  .row {
-    flex-direction: column;
-  }
+.main-menu > li:hover i:not(li.active) {
+    color: #175c58;
 }
 
-/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
-  .navbar a {
-    float: none;
-    width: 100%;
-  }
+.main-menu .active {
+    color: var(--white-color);
+    background: var(--blue-color);
+    cursor: default;
+    text-shadow: 1px 1px 1px var(--dark-green-color);
+    font-size: 18px;
+}
+
+article {
+   background: var(--gray-color);
+   padding: 1em;
+   border-radius: 0 0 5px 5px;
+   box-shadow: 5px 5px 5px #CCC;
+   position: relative;
+   z-index: -1;
+}
+
+h1 {
+    font-size: 115%;
+    margin: 1em 2em;
+    padding: 0;
+    position: relative;
+    color: #777;
+}
+
+.content {
+    padding: 0 0 0 3em;
+    font-size: 16px;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    list-style: none;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    min-width: calc(3.5 * var(--menu-item-size) - 5%);
+    box-shadow: 5px 5px 5px #CCC;
+}
+
+.with-submenu {
+    position: relative;
+    display: inline-block;
+    clip-path: polygon(10% 0%, 0% 100%, 0% 500%, 95% 500%, 95% 100%, 100% 50%, 95% 0%);
+    shape-outside: polygon(10% 0%, 0% 100%, 95% 100%, 100% 50%, 95% 0%);
+}
+
+.with-submenu:hover .submenu {
+    display: block;
+}
+
+.submenu > li {
+    background: #dedede;
+    border-bottom: 1px solid var(--gray-color);
+    color: #777;
+    padding: 1.2em 1em;
+    transition: 0.3s all linear;
+    display: block;
+    line-height: 0%;
+}
+
+.submenu > li:hover {
+    background: var(--gray-color)
+}
+
+.submenu > li:active {
+    background: var(--white-color);
 }
